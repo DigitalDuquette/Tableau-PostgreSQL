@@ -1,5 +1,4 @@
 /*
-	data_connections has 756 rows  
 	
 	inside data_connections, not all listings are the data sources that are in a workbook, this also represents all of the records inside of published data sources.  
 */
