@@ -5,11 +5,14 @@
 */
 
 SELECT
+	 
 	ds.is_certified AS CertifiedDataSource, 
 	ds.name AS DataSourceName, 
 	dc.server AS DataSourceServer, 
 	ds.db_class AS DataConnectionType, 
+	dc.username, 
 	 
+	
 	dc.owner_type,
 	CASE 
 		WHEN dc.owner_type = 'Datasource' THEN ds.name  
@@ -24,8 +27,12 @@ FROM data_connections AS dc
  
 --WHERE 
 --	ds.is_certified = TRUE 
+--	wkb.name = 'Content Usage Review'
+
 ORDER BY 
 	ds.name asc 
+	
+	
 	
 	
 	
