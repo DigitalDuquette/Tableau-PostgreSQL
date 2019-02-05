@@ -10,7 +10,7 @@ SELECT
 	dc.server AS DataSourceServer, 
 	ds.db_class AS DataConnectionType, 
 	dc.username, 
-	 
+
 	
 	dc.owner_type,
 	CASE 
@@ -27,9 +27,15 @@ FROM data_connections AS dc
 --WHERE 
 --	ds.is_certified = TRUE 
 --	wkb.name = 'Content Usage Review'
+--	ds.name = 'RIMAS System Audit'
 
 ORDER BY 
 	ds.name asc 
+	
+--	select * from datasources where is_certified = true 
+	
+
+	
 	
 	
 	

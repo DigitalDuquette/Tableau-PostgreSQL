@@ -2,7 +2,7 @@
 
 Used in the custom SQL analysis for Tableau Server.  
 
-**Query List**: 
+**Query List**:
 
 * datasource-workbook.sql
 
