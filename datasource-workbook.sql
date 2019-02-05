@@ -7,8 +7,14 @@
 SELECT
 	ds.is_certified AS CertifiedDataSource, 
 	ds.name AS DataSourceName, 
+	dc.server AS DataSourceServer, 
+	ds.db_class AS DataConnectionType, 
+	 
 	dc.owner_type,
-	wkb."name",
+	CASE 
+		WHEN dc.owner_type = 'Datasource' THEN ds.name  
+		ELSE wkb.name 
+	END AS "Workbook or data source name",
 	''  
     -- dc.*, 
     -- ds.* 
