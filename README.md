@@ -2,6 +2,12 @@
 
 Used in the custom SQL analysis for Tableau Server.  
 
+Pumped to have [PostgreSQL in Azure Data Studio](https://digitalduquette.com/blog/2019/3/19/postgresql-in-azure-data-studio)! 
+
+TODO: 
+
+- [ ] 
+
 **Query List**:
 
 * datasource-workbook.sql
