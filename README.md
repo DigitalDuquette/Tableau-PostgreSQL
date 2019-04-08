@@ -14,6 +14,7 @@ TODO:
 * workbooks.sql
 * historical-events.sql
 * subscriptions.sql
+* past-actions.sql
 
 ## Data Sources
 
@@ -28,3 +29,9 @@ Shows connections in Tableau workbooks published to server.  This includes datas
 Workbook data.  
 
 Primary focus is to show if analysts are missing About section information matching our data governance documentation needs.
+
+### past-actions.sql
+
+Each and every action taken by all Tableau Server users, from workbook access to view access, see the last 6 months of data on what actions were taken on server in detail.  
+
+More information for recent term than the 'Who Has Seen This View' functionality built into server. 
