@@ -1,4 +1,5 @@
-SELECT "historical_events"."id" AS "id",
+SELECT 
+  "historical_events"."id" AS "id",
   "historical_events"."historical_event_type_id" AS "historical_event_type_id",
   "historical_events"."worker" AS "worker",
   "historical_events"."duration_in_ms" AS "duration_in_ms",
