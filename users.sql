@@ -4,11 +4,6 @@
 
 select 
     LOWER(su.name) AS "user id", 
-        /* something is weird with dates
-            cast as EST and it's 9 hours off
-            leave alone and it's 4 hours off.  
-            casting as EST and then taking away the 9 hours. 
-         */
     (su.created_at - interval '9 hour') AT TIME ZONE 'EST' AS "user added to server on",
     (usr.login_at - interval '9 hour') AT TIME ZONE 'EST' AS "user last logged in on", 
     su.email AS "user email",
@@ -35,8 +30,5 @@ select
 from system_users AS su  
     left outer join users AS usr ON ( su.id = usr.id )
     inner join sites AS s ON ( usr.site_id = s.id )
-
--- where 
---     su.name = 'jtduqu'
 
     
