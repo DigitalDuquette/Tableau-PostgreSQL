@@ -3,7 +3,7 @@
 */
 
 select 
-    su.name AS "user id", 
+    LOWER(su.name) AS "user id", 
         /* something is weird with dates
             cast as EST and it's 9 hours off
             leave alone and it's 4 hours off.  
@@ -14,23 +14,29 @@ select
     su.email AS "user email",
     su.friendly_name AS "user name", 
     CASE  
-        WHEN usr.site_role_id = 0 THEN CAST(usr.site_role_id AS varchar)
-        WHEN usr.site_role_id = 1 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 2 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 3 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 4 THEN CAST(usr.site_role_id AS varchar)
-        WHEN usr.site_role_id = 5 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 6 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 7 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 8 THEN CAST(usr.site_role_id AS varchar) 
-        WHEN usr.site_role_id = 9 THEN CAST(usr.site_role_id AS varchar) 
-        ELSE CAST(usr.site_role_id AS varchar)
-    END AS "server role"
-    
+        WHEN usr.site_role_id = 0 THEN 'Site Administrator Explorer'
+        WHEN usr.site_role_id = 2 THEN 'Explorer (can publish)' 
+        WHEN usr.site_role_id = 3 THEN 'Explorer'  
+        WHEN usr.site_role_id = 7 THEN 'Guest'
+        WHEN usr.site_role_id = 8 THEN 'Unlicensed' 
+        WHEN usr.site_role_id = 9 THEN 'Viewer' 
+        WHEN usr.site_role_id = 10 AND su.admin_level = 0 THEN 'Creator'
+        WHEN usr.site_role_id = 10 AND su.admin_level = 10 THEN 'Server Administrator'
+        WHEN usr.site_role_id = 11 THEN 'Site Administrator Creator'
+        ELSE 'Undefined (depricated) role'
+    END AS "site role",
+    s.name AS "site name", 
+    CASE 
+        WHEN su.name IN ( '_system', 'guest' ) THEN 'unused system accounts'
+        WHEN su.name = '_tableau' THEN 'run as user' 
+        WHEN su.email IS NULL AND su.name NOT IN ( '_system', 'guest', '_tableau' ) THEN 'kiosk accounts'
+        ELSE 'user'
+    END AS "user group"
 from system_users AS su  
     left outer join users AS usr ON ( su.id = usr.id )
+    inner join sites AS s ON ( usr.site_id = s.id )
 
-where 
-    su.name = 'jtduqu'
+-- where 
+--     su.name = 'jtduqu'
 
     
