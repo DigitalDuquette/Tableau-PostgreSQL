@@ -30,5 +30,3 @@ select
 from system_users AS su  
     left outer join users AS usr ON ( su.id = usr.id )
     inner join sites AS s ON ( usr.site_id = s.id )
-
-    
