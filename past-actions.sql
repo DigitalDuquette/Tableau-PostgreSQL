@@ -2,9 +2,8 @@
     looks like this stores only the last 6 months of historical data. 
 */
 select 
-    -- hist_actor_user_id, 
-    husr.name, 
-    husr.system_user_id, 
+    COALESCE(su.friendly_name, husr.name) AS "User Name",
+    husr.system_user_id AS "Historical User ID", 
     he.historical_event_type_id AS "Action - ID", 
     het.name AS "Action - What did you do?", 
     het.action_type AS "Action - Group", 
@@ -30,9 +29,13 @@ from historical_events AS he
     left outer join hist_projects AS hp ON ( he.hist_project_id = hp.id )
     left outer join hist_workbooks AS hw ON ( he.hist_workbook_id = hw.id )
     left outer join hist_datasources AS hd ON ( he.hist_datasource_id = hd.id )
+    left outer join system_users AS su ON ( husr.system_user_id = su.id )
 where 
     he.is_failure = 'False' /* exclude failed historical events */ 
+    and hw.name = 'Headcount Over Time'
     -- and husr.name = 'jjduqu'
 -- order by 
 --     he.created_at asc 
+
+
 
