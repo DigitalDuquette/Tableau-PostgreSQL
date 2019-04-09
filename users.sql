@@ -27,11 +27,10 @@ select
         ELSE CAST(usr.site_role_id AS varchar)
     END AS "server role"
     
-from hist_users AS husr 
-    left outer join system_users AS su ON ( husr.system_user_id = su.id ) 
-    left outer join users AS usr ON ( husr.system_user_id = usr.id AND husr.site_role_id = usr.site_role_id )
+from system_users AS su  
+    left outer join users AS usr ON ( su.id = usr.id )
 
 where 
-    husr.name = 'jtduqu'
+    su.name = 'jtduqu'
 
     
