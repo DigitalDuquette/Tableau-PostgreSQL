@@ -3,27 +3,22 @@
 */
 select 
     COALESCE(su.friendly_name, husr.name) AS "User Name",
+    CASE 
+        WHEN su.name IN ( '_system', 'guest' ) THEN 'unused system accounts'
+        WHEN su.name = '_tableau' THEN 'run as user' 
+        WHEN su.email IS NULL AND su.name NOT IN ( '_system', 'guest', '_tableau' ) THEN 'kiosk accounts'
+        ELSE 'user'
+    END AS "user group", 
     husr.system_user_id AS "Historical User ID", 
     he.historical_event_type_id AS "Action - ID", 
     het.name AS "Action - What did you do?", 
     het.action_type AS "Action - Group", 
-        /* something is weird with dates
-            cast as EST and it's 9 hours off
-            leave alone and it's 4 hours off.  
-            casting as EST and then taking away the 9 hours. 
-         */
     (he.created_at - interval '9 hour') AT TIME ZONE 'EST' AS "Action - DateTime", 
-    -- he.hist_view_id AS "Access View ID",
     hv.name AS "Accessed View Name", 
     hv.repository_url AS "Accessed View URL",
-    -- he.hist_project_id, 
     hp.name AS "Accessed Project Name", 
-    -- he.hist_workbook_id, 
-    -- hw.workbook_id, 
     hw.name AS "Accessed Workbook Name", 
     hw.repository_url AS "Accessed Workbook URL", 
-    -- he.hist_datasource_id, 
-    -- hd.datasource_id, 
     hd.name AS "Accessed Datasource Name", 
     hd.repository_url AS "Accessed Datasource URL"
 from historical_events AS he 
@@ -37,11 +32,6 @@ from historical_events AS he
     left outer join system_users AS su ON ( husr.system_user_id = su.id )
 where 
     he.is_failure = 'False' /* exclude failed historical events */ 
-    -- and hw.name = 'Headcount Over Time'
---     and husr.name = 'jjduqu'
---     and hw.name = 'Postgres Workbook Access Views'
--- order by 
---     he.created_at asc 
-
+   
 
 
