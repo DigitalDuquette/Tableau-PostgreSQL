@@ -63,7 +63,7 @@ SELECT
     wkbk.project_id, 
     prj.name AS "Project Name"
     
-    prj.* 
+    -- prj.* 
     -- wkbk.*
 FROM workbooks AS wkbk 
     /* Each record == one workbook on server */
