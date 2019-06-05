@@ -5,34 +5,27 @@
 
 SELECT
 	 
-	ds.is_certified AS CertifiedDataSource, 
-	ds.name AS DataSourceName, 
-	dc.server AS DataSourceServer, 
-	ds.db_class AS DataConnectionType, 
+	ds.is_certified AS "Certified Data Source", 
+	ds.name AS "Tableau Data Source Name", 
+	dc.dbname AS "Data Source Name", 
+	dc.server AS "Data Source Server", 
+	ds.db_class AS "Data Connection Type", 
 	dc.username, 
-
-	
 	dc.owner_type,
 	CASE 
 		WHEN dc.owner_type = 'Datasource' THEN ds.name  
 		ELSE wkb.name 
-	END AS "Workbook or data source name",
-	''  
+	END AS "Workbook or data source name"
+	
     -- dc.*, 
     -- ds.* 
 FROM data_connections AS dc 
     inner join datasources AS ds ON ( dc.datasource_id = ds.id )
     left outer join workbooks as wkb ON ( wkb.id = dc.owner_id )
  
---WHERE 
---	ds.is_certified = TRUE 
---	wkb.name = 'Content Usage Review'
---	ds.name = 'RIMAS System Audit'
-
 ORDER BY 
 	ds.name asc 
-	
---	select * from datasources where is_certified = true 
+
 	
 
 	
