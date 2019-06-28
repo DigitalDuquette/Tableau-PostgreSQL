@@ -15,12 +15,13 @@ select
     het.action_type AS "Action - Group", 
     (he.created_at - interval '9 hour') AT TIME ZONE 'EST' AS "Action - DateTime", 
     hv.name AS "Accessed View Name", 
-    hv.repository_url AS "Accessed View URL",
+    REPLACE(hv.repository_url, '/sheets', '') AS "Accessed View URL",
     hp.name AS "Accessed Project Name", 
+    hp.project_id AS "Accessed Project URL"
     hw.name AS "Accessed Workbook Name", 
-    hw.repository_url AS "Accessed Workbook URL", 
+    hw.workbook_id AS "Accessed Workbook URL", 
     hd.name AS "Accessed Datasource Name", 
-    hd.repository_url AS "Accessed Datasource URL"
+    hd.datasource_id AS "Accessed Datasource URL"
 from historical_events AS he 
     left outer join hist_users AS husr ON ( he.hist_actor_user_id = husr.id )
     left outer join users AS usr ON ( husr.system_user_id = usr.id )
@@ -33,5 +34,5 @@ from historical_events AS he
 where 
     he.is_failure = 'False' /* exclude failed historical events */ 
    
-
+limit 10 
 
