@@ -19,7 +19,7 @@ select
     hp.name AS "Accessed Project Name", 
     p.id AS "Accessed Project URL",
     hw.name AS "Accessed Workbook Name", 
-    w._id AS "Accessed Workbook URL", 
+    w.id AS "Accessed Workbook URL", 
     hd.name AS "Accessed Datasource Name", 
     d.id AS "Accessed Datasource URL"
     
