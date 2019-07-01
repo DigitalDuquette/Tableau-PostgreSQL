@@ -1,5 +1,5 @@
 /*
-    looks like this stores only the last 6 months of historical data. 
+    last 6 months of historical data. 
 */
 select 
     COALESCE(su.friendly_name, husr.name) AS "User Name",
@@ -17,7 +17,7 @@ select
     hv.name AS "Accessed View Name", 
     REPLACE(hv.repository_url, '/sheets', '') AS "Accessed View URL",
     hp.name AS "Accessed Project Name", 
-    hp.project_id AS "Accessed Project URL"
+    hp.project_id AS "Accessed Project URL",
     hw.name AS "Accessed Workbook Name", 
     hw.workbook_id AS "Accessed Workbook URL", 
     hd.name AS "Accessed Datasource Name", 
@@ -33,6 +33,7 @@ from historical_events AS he
     left outer join system_users AS su ON ( husr.system_user_id = su.id )
 where 
     he.is_failure = 'False' /* exclude failed historical events */ 
-   
-limit 10 
+
+
+
 
