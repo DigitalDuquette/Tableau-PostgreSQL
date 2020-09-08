@@ -1,20 +1,22 @@
 # Tableau-PostgreSQL
 
-Used in the custom SQL analysis for Tableau Server.  
+Used in the custom SQL analysis for Tableau Server.  Primary functionality supported via `past-actions.sql`, a simple pgsql query against the PostgreSQL database Tableau uses.  Part of this release is a dashboard to bring visibility to server actions.
 
-Pumped to have [PostgreSQL in Azure Data Studio](https://digitalduquette.com/blog/2019/3/19/postgresql-in-azure-data-studio)! 
-
-TODO: 
-
-- [ ] 
+![dashboard](miscellany/img/dashboard.png)
 
 **Query List**:
 
 * datasource-workbook.sql
 * workbooks.sql
-* historical-events.sql
+* past-actions.sql
 * subscriptions.sql
 * past-actions.sql
+
+## Dashboard
+
+Primary data source, `past-actions.sql` powers a dashboard showing what actions users have taken over the last 6 months.  
+
+![dashboard-gif](miscellany/img/using_dashboard.gif)
 
 ## Data Sources
 
@@ -34,4 +36,4 @@ Primary focus is to show if analysts are missing About section information match
 
 Each and every action taken by all Tableau Server users, from workbook access to view access, see the last 6 months of data on what actions were taken on server in detail.  
 
-More information for recent term than the 'Who Has Seen This View' functionality built into server. 
+More information for recent term than the 'Who Has Seen This View' functionality built into server.

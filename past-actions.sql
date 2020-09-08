@@ -4,9 +4,8 @@
 select 
     COALESCE(su.friendly_name, husr.name) AS "User Name",
     CASE 
-        WHEN su.name IN ( '_system', 'guest' ) THEN 'unused system accounts'
-        WHEN su.name = '_tableau' THEN 'run as user' 
-        WHEN su.email IS NULL AND su.name NOT IN ( '_system', 'guest', '_tableau' ) THEN 'kiosk accounts'
+        WHEN su.name LIKE '_%' THEN 'system accounts'
+        WHEN su.email IS NULL AND su.name LIKE '_%' THEN 'kiosk accounts'
         ELSE 'user'
     END AS "user group", 
     husr.system_user_id AS "Historical User ID", 
@@ -22,7 +21,6 @@ select
     w.id AS "Accessed Workbook URL", 
     hd.name AS "Accessed Datasource Name", 
     d.id AS "Accessed Datasource URL"
-    
 from historical_events AS he 
     left outer join hist_users AS husr ON ( he.hist_actor_user_id = husr.id )
     left outer join users AS usr ON ( husr.system_user_id = usr.id )
